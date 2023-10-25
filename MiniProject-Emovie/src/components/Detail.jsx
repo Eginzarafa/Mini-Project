@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { AiOutlineHeart } from "react-icons/ai";
 import Footer from "./Footer";
 import Header from "./Header";
+import SidebarNew from "./SidebarNew";
 import axios from "axios";
+
 const DetailMovie = () => {
   const location = useLocation();
-  const { id } = useParams();
+  const { id, ratingValue } = useParams();
+  const [username, setUsername] = useState("");
+  const [review, setReview] = useState("");
+  const [title, setTitle] = useState("");
+  const [rating, setRating] = useState("");
+  const [message, setMessage] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
 
   const [data, setData] = useState([]);
 
@@ -14,10 +21,11 @@ const DetailMovie = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://6530e5876c756603295f4712.mockapi.io/emovie/movie/" + id
+          `https://6530e5876c756603295f4712.mockapi.io/emovie/movie/${id}`
         );
 
         setData(response.data);
+        setTitle(response.data.title);
 
         console.log(response);
       } catch (error) {
@@ -28,66 +36,140 @@ const DetailMovie = () => {
     fetchData();
   }, [id]);
 
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
-
-  const handleCommentSubmit = (e) => {
-    e.preventDefault();
-    if (comment.trim() !== "") {
-      setComments([...comments, comment]);
-      setComment("");
+  const handleSubmit = () => {
+    if (!username || !title || !review || !rating) {
+      setMessage("Mohon isi semua kolom.");
+      return;
     }
+
+    const data = {
+      username: username,
+      title: title,
+      review: review,
+      rating: rating,
+      movieID: id,
+    };
+
+    axios
+      .post(`https://6530e5876c756603295f4712.mockapi.io/emovie/rating/`, data)
+      .then((response) => {
+        setMessage("Rating berhasil ditambahkan.");
+        setUsername("");
+        setTitle("");
+        setReview("");
+        setRating("");
+      })
+      .catch((error) => {
+        setMessage("Terjadi kesalahan saat menambahkan rating.");
+        console.error("Error:", error);
+      });
+  };
+
+  const ShowMenu = (bol) => {
+    setShowMenu(bol === true ? false : true);
   };
 
   return (
     <div>
-      <Header />
-      <div className="max-w-screen-lg mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">Detail Movie</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <img src={data.image} alt={data.title} className="w-full h-auto" />
-          </div>
-          <div>
-            <h2 className="text-xl font-bold mb-2">{data.title}</h2>
-            <p>
-              <span className="font-semibold">Genre:</span> {data.genre}
-            </p>
-            <p>
-              <span className="font-semibold">Tahun Rilis:</span> {data.year}
-            </p>
-            <p>
-              <span className="font-semibold">Deskripsi:</span>{" "}
-              {data.description}
-            </p>
-          </div>
-        </div>
-        <div className="mt-4">
-          <h3 className="text-xl font-bold mb-2">Komentar</h3>
-          <form onSubmit={handleCommentSubmit}>
-            <div className="flex space-x-2">
-              <input
-                type="text"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Tambahkan komentar"
-                className="w-full border border-gray-300 rounded p-2"
-              />
-              <button
-                type="submit"
-                className="bg-blue-500 text-white rounded p-2"
-              >
-                Kirim
-              </button>
+      <Header onClick={() => ShowMenu(showMenu)} />
+      <div className="bg-yellow-600 flex">
+        {showMenu && <SidebarNew />}
+        <div className="flex-1">
+          <div className="max-w-screen-lg mx-auto p-4">
+            <h1 className="text-3xl font-bold mb-4">Detail Movie</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <img
+                  src={data.image}
+                  alt={data.title}
+                  className="w-full h-auto border rounded-3xl"
+                />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold mb-2">{data.title}</h2>
+                <table className="table-auto">
+                  <tbody>
+                    <tr>
+                      <td className="font-semibold">Genre:</td>
+                      <td>{data.genre}</td>
+                    </tr>
+                    <tr>
+                      <td className="font-semibold">Tahun Rilis:</td>
+                      <td>{data.year} </td>
+                    </tr>
+                    <tr>
+                      <td className="font-semibold">Rating:</td>
+                      <td>{ratingValue}/10</td>{" "}
+                    </tr>
+                    <tr>
+                      <td className="font-semibold">Deskripsi:</td>
+                      <td>{data.description}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </form>
-          <ul className="mt-2">
-            {comments.map((comment, index) => (
-              <li key={index} className="mb-2">
-                {comment}
-              </li>
-            ))}
-          </ul>
+            <div className="container mx-auto mt-20 p-5 bg-black  rounded-3xl">
+              <h2 className="text-2xl font-bold mb-4 text-white flex justify-center item-center">
+                Input Rating Film
+              </h2>
+              {message && <p className="text-white mb-4">{message}</p>}
+              <form>
+                <div className="mb-4">
+                  <label className="block text-gray-600 font-semibold">
+                    Username:
+                  </label>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-600 font-semibold">
+                    Title:
+                  </label>
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg"
+                    disabled
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-600 font-semibold">
+                    Review:
+                  </label>
+                  <textarea
+                    value={review}
+                    onChange={(e) => setReview(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg"
+                    rows="4"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-600 font-semibold">
+                    Rating:
+                  </label>
+                  <input
+                    type="number"
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  className="bg-yellow-700 text-black px-4 py-2 rounded-lg hover-bg-yellow-900"
+                >
+                  Kirim
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

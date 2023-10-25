@@ -1,45 +1,62 @@
 import React from "react";
+import { FaFilm, FaTv, FaComments, FaRobot, FaCog } from "react-icons/fa";
 
 export default function SidebarNew() {
   return (
-    <div className="flex flex-col flex-grow p-4 overflow-auto border-r">
+    <div className="flex flex-col w-64 p-4 overflow-y-auto border-r bg-black text-white">
       <a
-        className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-gray-300 bg-gray-300"
-        href="#"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
+        href="/home"
       >
+        <FaFilm className="text-2xl mr-2" />
         <span className="leading-none">Dashboard</span>
       </a>
 
       <a
-        className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-gray-300"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
         href="/movie"
       >
+        <FaFilm className="text-2xl mr-2" />
         <span className="leading-none">Movie</span>
       </a>
 
       <a
-        className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-gray-300"
-        href="#"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
+        href="/series"
       >
-        <span className="leading-none">menu 4</span>
+        <FaFilm className="text-2xl mr-2" />
+        <span className="leading-none">Series</span>
       </a>
 
       <a
-        className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-gray-300"
-        href="#"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
+        href="/rating"
       >
-        <span className="leading-none">menu 5</span>
+        <FaComments className="text-2xl mr-2" />
+        <span className="leading-none">Reviews</span>
       </a>
 
       <a
-        className="flex text-white items-center flex-shrink-0 h-10 px-3 mt-auto text-sm font-medium bg-red-700 rounded-full hover:bg-red-800"
-        href="#"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
+        href="/openai"
+      >
+        <FaRobot className="text-2xl mr-2" />
+        <span className="leading-none">OpenAI</span>
+      </a>
+
+      <div className="flex items-center h-10 px-4 text-sm font-medium mt-auto rounded-md hover:bg-slate-200">
+        <FaCog className="text-2xl mr-2" />
+        <span className="leading-none">Settings</span>
+      </div>
+
+      <a
+        className="flex items-center h-10 px-4 mt-4 text-sm font-medium text-white bg-red-700 rounded-full hover:bg-red-800"
+        href="/logout"
       >
         <svg
-          className="w-6 h-6"
-          fill="currentColor"
-          viewBox="0 0 20 20"
+          className="w-6 h-6 fill-current"
           xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
         >
           <path
             fillRule="evenodd"
@@ -47,7 +64,6 @@ export default function SidebarNew() {
             clipRule="evenodd"
           />
         </svg>
-
         <span className="ml-3 leading-none">Log Out</span>
       </a>
     </div>

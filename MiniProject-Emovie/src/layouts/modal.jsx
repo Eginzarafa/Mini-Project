@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import Draggable from "react-draggable";
+import Draggable from "react-draggable"; // Mengganti react-draggable
 
 const Modal = ({ children, show_modal, onClick, custom_class, title }) => {
   const [currentPosition, setCurrentPosition] = useState({
@@ -9,7 +9,7 @@ const Modal = ({ children, show_modal, onClick, custom_class, title }) => {
   });
 
   const onDrag = (e, data) => {
-    setCurrentPosition({ xRate: data.lastX, yRate: data.lastY });
+    setCurrentPosition({ xRate: data.x, yRate: data.y });
   };
 
   return (
@@ -30,7 +30,7 @@ const Modal = ({ children, show_modal, onClick, custom_class, title }) => {
                   {/* {/body/} */}
                   <div className="relative grid grid-cols-1 p-3">
                     <div className="lg:w-full col-span-2 text-end flex items-start justify-between border-b">
-                      <h3 className="p-2 capitalize">{title}</h3>
+                      <h3 className="p-2 capitalize">{title} </h3>
                       <button
                         onClick={onClick}
                         className="hover:bg-gray-300 p-2 rounded-xl"

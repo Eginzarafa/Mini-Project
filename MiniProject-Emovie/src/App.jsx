@@ -2,26 +2,36 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/login";
 import Home from "./pages/dashboard";
-import Sidebar from "./components/Sidebar";
 import DetailMovie from "./components/Detail";
 import Movie from "./pages/movie";
-import Test from "./pages/test";
+import OpenAi from "./pages/openAI";
+import Rating from "./pages/rating";
+import Series from "./pages/series";
+import DetailSeries from "./components/DetailSeries";
+import SettingPage from "./pages/settings";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedSeries, setSelectedSeselectedSeries] = useState(null);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/Movie" element={<Movie />} />
+        <Route path="/series" element={<Series />} />
         <Route
-          path="/detail/:id"
+          path="/detail/:id/:ratingValue"
           element={<DetailMovie selectedMovie={selectedMovie} />}
         />
-        <Route path="/test" element={<Test />} />
+        <Route
+          path="/detailSeries/:id/:ratingValue"
+          element={<DetailSeries selectedSeries={selectedSeries} />}
+        />
+        <Route path="/openai" element={<OpenAi />} />
+        <Route path="/rating" element={<Rating />} />
+        <Route path="/setting" element={<SettingPage />} />
       </Routes>
     </BrowserRouter>
   );

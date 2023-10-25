@@ -1,44 +1,62 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import MovieCard from "../components/Card";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SidebarNew from "../components/SidebarNew";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import MovieCard from "../components/Card";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 const Dashboard = () => {
-  const apiUrl = "https://6530e5876c756603295f4712.mockapi.io/emovie/movie";
-  const [images] = useState([
-    "https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=170667a&w=0&k=20&c=vKqLcyX0Qlrh8A351AA3-h2s5P46CZjh8JR6_QyV-D4=",
-    "https://via.placeholder.com/300",
-    "https://via.placeholder.com/300",
-    "https://via.placeholder.com/300",
-  ]);
+  const ratingApiUrl =
+    "https://6530e5876c756603295f4712.mockapi.io/emovie/rating/";
+  const movieApiUrl =
+    "https://6530e5876c756603295f4712.mockapi.io/emovie/movie";
+  const seriesApiUrl =
+    "https://65388890a543859d1bb18ac4.mockapi.io/emovie2/series";
 
   const [currentImage, setCurrentImage] = useState(0);
-  const [data, setData] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [series, setSeries] = useState([]);
+  const [ratings, setRatings] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
 
+  const fetchMovieData = async () => {
+    try {
+      const moviesResponse = await axios.get(movieApiUrl);
+      setMovies(moviesResponse.data);
+      console.log("Movies Data:", moviesResponse);
+    } catch (error) {
+      console.log("Error fetching movies:", error);
+    }
+  };
+
+  const fetchSeriesData = async () => {
+    try {
+      const seriesResponse = await axios.get(seriesApiUrl);
+      setSeries(seriesResponse.data);
+      console.log("series Data:", seriesResponse);
+    } catch (error) {
+      console.log("Error fetching series:", error);
+    }
+  };
+
+  const fetchRatingData = async () => {
+    try {
+      const ratingsResponse = await axios.get(ratingApiUrl);
+      setRatings(ratingsResponse.data);
+      console.log("Data Rating:", ratingsResponse);
+    } catch (error) {
+      console.log("Error fetching ratings:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://6530e5876c756603295f4712.mockapi.io/emovie/movie"
-        );
-
-        setData(response.data);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
+    fetchMovieData();
+    fetchRatingData();
+    fetchSeriesData();
   }, []);
 
   useEffect(() => {
@@ -63,86 +81,62 @@ const Dashboard = () => {
     setShowMenu(bol === true ? false : true);
   };
 
+  const findRating = (id, isSeries) => {
+    var value = 0;
+    ratings
+      .filter((f) => f.movieID == id)
+      .map((items, i) => {
+        console.log(items.rating);
+        value = items.rating;
+      });
+    return value;
+  };
+
   return (
     <div>
-      <div className="relative">
-        <Header onClick={() => ShowMenu(showMenu)} />
+      <Header onClick={() => ShowMenu(showMenu)} />
+      <div className="flex h-screen">
+        {showMenu && <SidebarNew />}
 
-        {showMenu ? <SidebarNew /> : ""}
-      </div>
-      <div>
-        <Swiper
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
-          spaceBetween={50}
-          slidesPerView={3}
-          navigation
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log("slide change")}
-        >
-          <SwiperSlide>
-            <img
-              src={
-                "https://images.tokopedia.net/img/KRMmCm/2023/7/20/eceeb7f7-8472-4ce3-ba74-d877db579bc0.jpg"
-              }
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={
-                "https://images.tokopedia.net/img/KRMmCm/2023/7/20/eceeb7f7-8472-4ce3-ba74-d877db579bc0.jpg"
-              }
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={
-                "https://images.tokopedia.net/img/KRMmCm/2023/7/20/eceeb7f7-8472-4ce3-ba74-d877db579bc0.jpg"
-              }
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={
-                "https://images.tokopedia.net/img/KRMmCm/2023/7/20/eceeb7f7-8472-4ce3-ba74-d877db579bc0.jpg"
-              }
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={
-                "https://images.tokopedia.net/img/KRMmCm/2023/7/20/eceeb7f7-8472-4ce3-ba74-d877db579bc0.jpg"
-              }
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={
-                "https://images.tokopedia.net/img/KRMmCm/2023/7/20/eceeb7f7-8472-4ce3-ba74-d877db579bc0.jpg"
-              }
-            />
-          </SwiperSlide>
-        </Swiper>
-      </div>
+        <div className="flex-1 overflow-x-hidden overflow-y-auto p-4 bg-yellow-950">
+          <div className="flex flex-wrap p-2">
+            {movies.map((movie, i) => {
+              const rating = findRating(movie.id, false);
+              return (
+                <div className="m-3" key={i}>
+                  <MovieCard
+                    id={movie.id}
+                    genre={movie.genre}
+                    title={movie.title}
+                    deskripsi={movie.description}
+                    imageUrl={movie.image}
+                    rating={rating}
+                    kategori={"movie"}
+                  />
+                </div>
+              );
+            })}
 
-      <div className="flex flex-wrap p-2 ">
-        {data.map((items, i) => {
-          return (
-            <div className="m-3">
-              <MovieCard
-                id={items.id}
-                genre={items.genre}
-                title={items.title}
-                deskripsi={items.description}
-                imageUrl={items.image}
-                rating={8.5}
-              />
-            </div>
-          );
-        })}
-      </div>
+            {series.map((item, i) => {
+              const rating = findRating(item.id, false);
 
+              return (
+                <div className="m-3" key={i}>
+                  <MovieCard
+                    id={item.id}
+                    genre={item.genre}
+                    title={item.title}
+                    deskripsi={item.description}
+                    imageUrl={item.image}
+                    rating={rating}
+                    kategori={"series"}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
       <Footer />
     </div>
   );

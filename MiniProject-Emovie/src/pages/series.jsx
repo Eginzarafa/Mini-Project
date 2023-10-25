@@ -6,9 +6,9 @@ import Footer from "../components/Footer";
 import axios from "axios";
 import SidebarNew from "../components/SidebarNew";
 
-const Movie = () => {
-  const [movies, setMovies] = useState([]);
-  const apiUrl = "https://6530e5876c756603295f4712.mockapi.io/emovie/movie";
+const Series = () => {
+  const [series, setSeries] = useState([]);
+  const apiUrl = "https://65388890a543859d1bb18ac4.mockapi.io/emovie2/series";
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
@@ -26,7 +26,7 @@ const Movie = () => {
     axios
       .get(apiUrl)
       .then((response) => {
-        setMovies(response.data);
+        setSeries(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -34,14 +34,14 @@ const Movie = () => {
   };
 
   const handleEdit = (id) => {
-    const movieToEdit = movies.find((movie) => movie.id === id);
-    if (movieToEdit) {
-      setTitle(movieToEdit.title);
-      setGenre(movieToEdit.genre);
-      setYear(movieToEdit.year);
-      setDescription(movieToEdit.description);
-      setImage(movieToEdit.image);
-      setId(movieToEdit.id);
+    const seriesToEdit = series.find((series) => series.id === id);
+    if (seriesToEdit) {
+      setTitle(seriesToEdit.title);
+      setGenre(seriesToEdit.genre);
+      setYear(seriesToEdit.year);
+      setDescription(seriesToEdit.description);
+      setImage(seriesToEdit.image);
+      setId(seriesToEdit.id);
       setShowModal(true);
     }
   };
@@ -110,7 +110,7 @@ const Movie = () => {
         {showMenu && <SidebarNew />}
         <div className="w-full p-4">
           <h1 className="text-3xl font-bold mb-4 flex justify-center items-center">
-            Movie
+            Series
           </h1>
           <button
             className="px-8 bg-yellow-700 text-white text-lg font-bold py-2 rounded-md flex"
@@ -125,7 +125,7 @@ const Movie = () => {
             }}
           >
             <HiPlus className="text-lg mr-2" />
-            ADD New Movies
+            ADD New Series
           </button>
           <div className="overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -155,9 +155,9 @@ const Movie = () => {
                 </tr>
               </thead>
               <tbody>
-                {movies.map((movie, index) => (
+                {series.map((series, index) => (
                   <tr
-                    key={movie.id}
+                    key={series.id}
                     className={
                       index % 2 === 0
                         ? "bg-white border-b dark:bg-gray-900 dark:border-gray-700"
@@ -168,29 +168,29 @@ const Movie = () => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {movie.id}
+                      {series.id}
                     </th>
-                    <td className="px-6 py-4">{movie.title}</td>
-                    <td className="px-6 py-4">{movie.genre}</td>
-                    <td className="px-6 py-4">{movie.year}</td>
+                    <td className="px-6 py-4">{series.title}</td>
+                    <td className="px-6 py-4">{series.genre}</td>
+                    <td className="px-6 py-4">{series.year}</td>
                     <td className="px-6 py-4">
                       <img
-                        src={movie.image}
-                        alt={movie.title}
+                        src={series.image}
+                        alt={series.title}
                         style={{ width: "100px" }}
                       />
                     </td>
-                    <td className="px-6 py-4">{movie.description}</td>
+                    <td className="px-6 py-4">{series.description}</td>
                     <td className="px-6 py-4">
                       <button
                         className="text-blue-600 dark:text-blue-500 hover:underline mr-2"
-                        onClick={() => handleEdit(movie.id)}
+                        onClick={() => handleEdit(series.id)}
                       >
                         Edit
                       </button>
                       <button
                         className="text-blue-600 dark:text-blue-500 hover:underline"
-                        onClick={() => handleDelete(movie.id)}
+                        onClick={() => handleDelete(series.id)}
                       >
                         Delete
                       </button>
@@ -206,7 +206,7 @@ const Movie = () => {
         show_modal={showModal}
         onClick={() => setShowModal(false)}
         custom_class="lg:w-2/6"
-        title={id ? "Edit Film" : "Tambah Film Baru"}
+        title={id ? "Edit Film" : "Tambah Series Baru"}
       >
         <div className="grid grid-cols-2 gap-3">
           <div className="col-span-2">
@@ -260,4 +260,4 @@ const Movie = () => {
   );
 };
 
-export default Movie;
+export default Series;
