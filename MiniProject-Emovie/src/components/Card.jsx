@@ -30,12 +30,12 @@ const MovieCard = ({
   };
 
   return (
-    <div className=" max-w-xs h-full rounded overflow-hidden shadow-lg border border-gray-300 text-white">
+    <div className=" max-w-xs w-64 h-full rounded overflow-hidden shadow-lg border border-gray-300 text-white">
       <img src={imageUrl} alt={title} className="w-full h-max object-cover" />
-      <div className="px-6 py-4 h-72">
+      <div className="px-6 py-4 h-72 item-center justify-center">
         <div className=" text-sm text-gray-400">{genre}</div>
         <div className="font-bold text-xl mb-2 text-white">{title}</div>
-        <div className="text-xl mb-2 text-gray-100">
+        <div className="text-sm mb-2 text-gray-100">
           {trimDescription(deskripsi, 75)}
         </div>
         <div className="flex items-center space-x-2">

@@ -41,7 +41,7 @@ function Footer() {
           <div className="md:w-1/2">
             <h3 className="text-2xl font-semibold mb-4">Kontak Kami</h3>
             <p className="mb-2">Nama : Egin Tia Yulanda</p>
-            <p className="mb-2">Nomor Telepon: +6285 2661 0104 5</p>
+            <p className="mb-2">Nomor Telepon: +62 852 6610 1045</p>
             <p>Alamat: Palembang, Sumatra Selatan </p>
           </div>
         </div>

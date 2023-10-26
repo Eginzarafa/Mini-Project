@@ -4,10 +4,7 @@ import SidebarNew from "../components/SidebarNew";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MovieCard from "../components/Card";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import Carousel from "../components/Carousel";
 
 const Dashboard = () => {
   const ratingApiUrl =
@@ -17,7 +14,6 @@ const Dashboard = () => {
   const seriesApiUrl =
     "https://65388890a543859d1bb18ac4.mockapi.io/emovie2/series";
 
-  const [currentImage, setCurrentImage] = useState(0);
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
   const [ratings, setRatings] = useState([]);
@@ -59,24 +55,6 @@ const Dashboard = () => {
     fetchSeriesData();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextImage();
-    }, 5000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [currentImage]);
-
-  const nextImage = () => {
-    setCurrentImage((currentImage + 1) % images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImage((currentImage - 1 + images.length) % images.length);
-  };
-
   const ShowMenu = (bol) => {
     setShowMenu(bol === true ? false : true);
   };
@@ -99,6 +77,16 @@ const Dashboard = () => {
         {showMenu && <SidebarNew />}
 
         <div className="flex-1 overflow-x-hidden overflow-y-auto p-4 bg-yellow-950">
+          <div className="flex items-center justify-center p-2">
+            <h1 className="text-white font-bold text-3xl font-mono">
+              E - Movie Best Film Of The Year
+            </h1>
+          </div>
+          <div className="h-96 w-screen flex justify-center items-center  ">
+            <div className="container max-auto">
+              <Carousel />
+            </div>
+          </div>
           <div className="flex flex-wrap p-2">
             {movies.map((movie, i) => {
               const rating = findRating(movie.id, false);

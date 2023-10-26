@@ -1,109 +1,59 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import SidebarNew from "../components/SidebarNew";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const SettingPage = () => {
-  const [username, setUsername] = useState("Username123");
-  const [newUsername, setNewUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
 
-  const handleUsernameChange = () => {
-    if (newUsername) {
-      // Kode untuk mengubah username di sini (misalnya, panggil API)
-      setSuccessMessage("Username berhasil diubah.");
-      setUsername(newUsername);
-      setNewUsername("");
-    } else {
-      setMessage("Username baru tidak boleh kosong.");
-    }
-  };
-
-  const handlePasswordChange = () => {
-    if (newPassword && newPassword === confirmPassword) {
-      // Kode untuk mengubah password di sini (misalnya, panggil API)
-      setSuccessMessage("Password berhasil diubah.");
-      setPassword(newPassword);
-      setNewPassword("");
-      setConfirmPassword("");
-    } else {
-      setMessage("Password baru tidak boleh kosong dan harus sesuai.");
-    }
+  const ShowMenu = (bol) => {
+    setShowMenu(bol === true ? false : true);
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Pengaturan Akun</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <h2 className="text-xl font-bold mb-2">Ubah Username</h2>
-          <p className="mb-4">Username saat ini: {username}</p>
-          <div className="mb-4">
-            <label className="block text-gray-600 font-semibold">
-              Username Baru:
-            </label>
-            <input
-              type="text"
-              value={newUsername}
-              onChange={(e) => setNewUsername(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg"
-            />
+    <div>
+      <Header onClick={() => ShowMenu(showMenu)} />
+      <div className="flex h-screen bg-gray-100">
+        {showMenu && <SidebarNew />}
+
+        <div className="w-full flex justify-center items-center bg-yellow-800 ">
+          <div className="max-w-md w-full bg-yellow-800 p-6  ">
+            <main className="flex-1 overflow-x-hidden overflow-y-auto ">
+              <div className="container mx-auto p-4">
+                <h1 className="text-3xl font-bold mb-4 text-black">Settings</h1>
+
+                <div className="p-6  max-w-md w-full rounded-lg shadow-md bg-white">
+                  <div className="mb-6">
+                    <h2 className="text-2xl font-semibold mb-2 ">
+                      Change Username
+                    </h2>
+                    <a
+                      className="flex items-center h-10 px-4 mt-4 text-sm font-medium bg-yellow-700 rounded-full hover-bg-yellow-800"
+                      href="/username"
+                    >
+                      <span className="leading-none">Username</span>
+                    </a>
+                  </div>
+
+                  <div className="mb-6">
+                    <h2 className="text-2xl font-semibold mb-2 ">
+                      Change Password
+                    </h2>
+                    <a
+                      className="flex items-center h-10 px-4 mt-4 text-sm font-medium bg-yellow-700 rounded-full hover-bg-yellow-800"
+                      href="/password"
+                    >
+                      <span className="leading-none">Password</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </main>
           </div>
-          <button
-            onClick={handleUsernameChange}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-          >
-            Simpan Perubahan
-          </button>
-        </div>
-        <div>
-          <h2 className="text-xl font-bold mb-2">Ubah Password</h2>
-          <div className="mb-4">
-            <label className="block text-gray-600 font-semibold">
-              Password Saat Ini:
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-600 font-semibold">
-              Password Baru:
-            </label>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-600 font-semibold">
-              Konfirmasi Password Baru:
-            </label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg"
-            />
-          </div>
-          <button
-            onClick={handlePasswordChange}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-          >
-            Simpan Perubahan Password
-          </button>
         </div>
       </div>
-      {message && <p className="text-red-500 mt-4">{message}</p>}
-      {successMessage && (
-        <p className="text-green-500 mt-4">{successMessage}</p>
-      )}
+      <Footer />
     </div>
   );
 };

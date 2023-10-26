@@ -1,19 +1,46 @@
-import React from "react";
-import { FaFilm, FaTv, FaComments, FaRobot, FaCog } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import {
+  FaFilm,
+  FaTv,
+  FaComments,
+  FaRobot,
+  FaCog,
+  FaSignOutAlt,
+  FaUserCircle,
+} from "react-icons/fa";
 
 export default function SidebarNew() {
+  const [username, setUsername] = useState("");
+  const [role, setRole] = useState(""); // Menambahkan state role
+
+  useEffect(() => {
+    fetch("https://65388890a543859d1bb18ac4.mockapi.io/emovie2/users/1")
+      .then((response) => response.json())
+      .then((data) => {
+        setUsername(data.username);
+        setRole(data.role); // Mengambil role dari data API
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   return (
-    <div className="flex flex-col w-64 p-4 overflow-y-auto border-r bg-black text-white">
+    <div className="flex flex-col w-72 p-4 overflow-y-auto bg-black text-white">
+      <div className="flex items-center flex-col text-center mb-4">
+        <FaUserCircle className="text-3xl mb-2" />
+        <span className="text-xl text-gray-400">{username}</span>
+        <span className="text-sm text-gray-400 mt-1">{role}</span>
+      </div>
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
         href="/home"
       >
         <FaFilm className="text-2xl mr-2" />
         <span className="leading-none">Dashboard</span>
       </a>
-
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
         href="/movie"
       >
         <FaFilm className="text-2xl mr-2" />
@@ -21,15 +48,15 @@ export default function SidebarNew() {
       </a>
 
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
         href="/series"
       >
-        <FaFilm className="text-2xl mr-2" />
+        <FaTv className="text-2xl mr-2" />
         <span className="leading-none">Series</span>
       </a>
 
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
         href="/rating"
       >
         <FaComments className="text-2xl mr-2" />
@@ -37,34 +64,26 @@ export default function SidebarNew() {
       </a>
 
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
         href="/openai"
       >
         <FaRobot className="text-2xl mr-2" />
         <span className="leading-none">OpenAI</span>
       </a>
-
-      <div className="flex items-center h-10 px-4 text-sm font-medium mt-auto rounded-md hover:bg-slate-200">
+      <a
+        className="flex items-center h-10 px-4 text-sm font-medium mt-auto rounded-md hover-bg-slate-200 border "
+        href="/setting"
+      >
         <FaCog className="text-2xl mr-2" />
         <span className="leading-none">Settings</span>
-      </div>
+      </a>
 
       <a
-        className="flex items-center h-10 px-4 mt-4 text-sm font-medium text-white bg-red-700 rounded-full hover:bg-red-800"
-        href="/logout"
+        className="flex items-center h-10 px-4 mt-4 text-sm font-medium bg-red-700 rounded-full hover-bg-red-800"
+        href="/"
       >
-        <svg
-          className="w-6 h-6 fill-current"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-        >
-          <path
-            fillRule="evenodd"
-            d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-            clipRule="evenodd"
-          />
-        </svg>
-        <span className="ml-3 leading-none">Log Out</span>
+        <FaSignOutAlt className="text-2xl mr-2" />
+        <span className="leading-none">Log Out</span>
       </a>
     </div>
   );
