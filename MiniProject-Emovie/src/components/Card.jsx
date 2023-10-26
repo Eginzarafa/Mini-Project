@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineStar } from "react-icons/ai";
 
 const MovieCard = ({
   id,
@@ -54,7 +54,9 @@ const MovieCard = ({
             <AiOutlineHeart className="text-white text-2xl" />
           </button>
         </div>
-        <p className="text-gray-100 text-base mt-4">Rating: {rating} / 10</p>
+        <p className="text-gray-100 text-base mt-4 flex items-center">
+          <AiOutlineStar className="text-yellow-400 mr-1" /> {rating} / 10
+        </p>
       </div>
     </div>
   );

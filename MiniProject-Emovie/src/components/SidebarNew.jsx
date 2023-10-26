@@ -7,18 +7,19 @@ import {
   FaCog,
   FaSignOutAlt,
   FaUserCircle,
+  FaHome,
 } from "react-icons/fa";
 
 export default function SidebarNew() {
   const [username, setUsername] = useState("");
-  const [role, setRole] = useState(""); // Menambahkan state role
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     fetch("https://65388890a543859d1bb18ac4.mockapi.io/emovie2/users/1")
       .then((response) => response.json())
       .then((data) => {
         setUsername(data.username);
-        setRole(data.role); // Mengambil role dari data API
+        setRole(data.role);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -33,14 +34,14 @@ export default function SidebarNew() {
         <span className="text-sm text-gray-400 mt-1">{role}</span>
       </div>
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
         href="/home"
       >
-        <FaFilm className="text-2xl mr-2" />
+        <FaHome className="text-2xl mr-2" />
         <span className="leading-none">Dashboard</span>
       </a>
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
         href="/movie"
       >
         <FaFilm className="text-2xl mr-2" />
@@ -48,7 +49,7 @@ export default function SidebarNew() {
       </a>
 
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
         href="/series"
       >
         <FaTv className="text-2xl mr-2" />
@@ -56,7 +57,7 @@ export default function SidebarNew() {
       </a>
 
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
         href="/rating"
       >
         <FaComments className="text-2xl mr-2" />
@@ -64,14 +65,14 @@ export default function SidebarNew() {
       </a>
 
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover-bg-slate-200 border mb-4"
+        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
         href="/openai"
       >
         <FaRobot className="text-2xl mr-2" />
         <span className="leading-none">OpenAI</span>
       </a>
       <a
-        className="flex items-center h-10 px-4 text-sm font-medium mt-auto rounded-md hover-bg-slate-200 border "
+        className="flex items-center h-10 px-4 text-sm font-medium mt-auto rounded-md hover:bg-slate-200 border "
         href="/setting"
       >
         <FaCog className="text-2xl mr-2" />
@@ -79,7 +80,7 @@ export default function SidebarNew() {
       </a>
 
       <a
-        className="flex items-center h-10 px-4 mt-4 text-sm font-medium bg-red-700 rounded-full hover-bg-red-800"
+        className="flex items-center h-10 px-4 mt-4 text-sm font-medium bg-red-700 rounded-full hover:bg-red-800"
         href="/"
       >
         <FaSignOutAlt className="text-2xl mr-2" />
