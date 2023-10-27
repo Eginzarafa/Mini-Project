@@ -18,6 +18,8 @@ const Dashboard = () => {
   const [series, setSeries] = useState([]);
   const [ratings, setRatings] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const fetchMovieData = async () => {
     try {
@@ -70,6 +72,25 @@ const Dashboard = () => {
     return value;
   };
 
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  const performSearch = () => {
+    const results = movies.concat(series).filter((item) => {
+      return (
+        item.title.toLowerCase().includes(searchText.toLowerCase()) ||
+        (item.year && item.year.includes(searchText)) ||
+        item.genre.toLowerCase().includes(searchText.toLowerCase())
+      );
+    });
+    setSearchResults(results);
+  };
+
+  useEffect(() => {
+    performSearch();
+  }, [searchText]);
+
   return (
     <div>
       <Header onClick={() => ShowMenu(showMenu)} />
@@ -79,7 +100,7 @@ const Dashboard = () => {
         <div className="flex-1 overflow-x-hidden overflow-y-auto p-4 bg-yellow-950">
           <div className="flex items-center justify-center p-2">
             <h1 className="text-white font-bold text-3xl font-mono">
-              E - Movie Best Film Of The Year
+              E - Movie Best Movie Of The Year
             </h1>
           </div>
           <div className="h-96 w-screen flex justify-center items-center  ">
@@ -87,41 +108,50 @@ const Dashboard = () => {
               <Carousel />
             </div>
           </div>
-          <div className="flex flex-wrap p-2">
-            {movies.map((movie, i) => {
-              const rating = findRating(movie.id, false);
-              return (
-                <div className="m-3" key={i}>
-                  <MovieCard
-                    id={movie.id}
-                    genre={movie.genre}
-                    title={movie.title}
-                    deskripsi={movie.description}
-                    imageUrl={movie.image}
-                    rating={rating}
-                    kategori={"movie"}
-                  />
-                </div>
-              );
-            })}
-
-            {series.map((item, i) => {
-              const rating = findRating(item.id, false);
-
-              return (
-                <div className="m-3" key={i}>
-                  <MovieCard
-                    id={item.id}
-                    genre={item.genre}
-                    title={item.title}
-                    deskripsi={item.description}
-                    imageUrl={item.image}
-                    rating={rating}
-                    kategori={"series"}
-                  />
-                </div>
-              );
-            })}
+          <div className="flex items-center justify-end mr-12">
+            <input
+              type="text"
+              placeholder="Cari..."
+              className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              value={searchText}
+              onChange={handleSearchChange}
+            />
+            <button
+              className="bg-yellow-700 text-white p-2 rounded-md ml-2"
+              onClick={performSearch}
+            >
+              Cari
+            </button>
+          </div>
+          <div className="flex items-start justify-start p-2">
+            <h1 className="text-gray-200 font-bold text-3xl font-serif ml-6">
+              Movie & Series
+            </h1>
+          </div>
+          <div className="flex flex-wrap p-2 ml-3">
+            {(searchText ? searchResults : movies.concat(series)).map(
+              (item, i) => {
+                const rating = findRating(
+                  item.id,
+                  item.hasOwnProperty("description")
+                );
+                return (
+                  <div className="m-3" key={i}>
+                    <MovieCard
+                      id={item.id}
+                      genre={item.genre}
+                      title={item.title}
+                      deskripsi={item.description}
+                      imageUrl={item.image}
+                      rating={rating}
+                      kategori={
+                        item.hasOwnProperty("description") ? "series" : "movie"
+                      }
+                    />
+                  </div>
+                );
+              }
+            )}
           </div>
         </div>
       </div>

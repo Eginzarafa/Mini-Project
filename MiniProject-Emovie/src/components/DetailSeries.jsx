@@ -103,7 +103,7 @@ const DetailSeries = () => {
 
         <div className="container mx-auto mt-20 p-5 bg-black  rounded-3xl">
           <h2 className="text-2xl font-bold mb-4 text-white flex justify-center item-center">
-            Input Rating Film
+            Rating Film
           </h2>
           {message && <p className="text-white mb-4">{message}</p>}
           <form>
@@ -127,6 +127,7 @@ const DetailSeries = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg"
+                disabled
               />
             </div>
             <div className="mb-4">
