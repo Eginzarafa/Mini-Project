@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Footer from "../components/Footer";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import axios from "axios";
+import BgLogin from "../assets/bglogin.png";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -37,10 +38,8 @@ function Login() {
       <div
         className="bg-cover bg-center relative py-50 min-h-screen flex flex-col justify-center items-center"
         style={{
-          backgroundImage:
-            'url("https://img.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg?w=2000&t=st=1697698224~exp=1697698824~hmac=928e59b55495ab78921745e13d8ada30cfe2d1876bff7e39d99fcbfaca25cd9b")',
-          background:
-            "linear-gradient(rgba(0, 0, 0, 0), rgba(0.5, 0, 0, 1)), url('https://img.freepik.com/free-photo/rows-red-seats-theater_53876-64710.jpg?w=2000&t=st=1697698224~exp=1697698824~hmac=928e59b55495ab78921745e13d8ada30cfe2d1876bff7e39d99fcbfaca25cd9b')",
+          backgroundImage: `url(${BgLogin})`,
+          background: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1)), url(${BgLogin})`,
         }}
       >
         <div className="max-w-md w-full p-4 bg-white rounded-lg shadow-lg">

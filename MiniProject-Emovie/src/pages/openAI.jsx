@@ -59,7 +59,7 @@ function OpenAi() {
             <main className="flex-1 overflow-x-hidden overflow-y-auto bg-yellow-800">
               <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6">
                 <h1 className="text-3xl font-bold text-center mb-4 text-gray-800">
-                  Chat with GPT-3.5
+                  Chat with GPT
                 </h1>
                 <div className="mb-4">
                   <button
