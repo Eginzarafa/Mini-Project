@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HiPlus } from "react-icons/hi";
-import Modal from "../layouts/modal";
+import Modal from "../components/modal";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";

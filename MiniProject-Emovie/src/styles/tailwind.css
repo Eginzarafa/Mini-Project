@@ -700,6 +700,11 @@ video {
   margin-right: 0.5rem;
 }
 
+.mx-11 {
+  margin-left: 2.75rem;
+  margin-right: 2.75rem;
+}
+
 .ml-4 {
   margin-left: 1rem;
 }
@@ -814,6 +819,10 @@ video {
 
 .ml-6 {
   margin-left: 1.5rem;
+}
+
+.mt-7 {
+  margin-top: 1.75rem;
 }
 
 .block {

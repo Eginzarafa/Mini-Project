@@ -25,8 +25,7 @@ function Login() {
         localStorage.setItem("role", res.data.info_user.role);
         if (res.data.info_user.role === "admin") {
           window.location.href = "/home";
-        }
-        else {
+        } else {
           window.location.href = "/home";
         }
       })
@@ -96,7 +95,7 @@ function Login() {
               <button
                 type="button"
                 onClick={handleLogin}
-                className="bg-blue-500 text-white rounded-lg px-4 py-2"
+                className="bg-yellow-700 text-white rounded-lg px-4 py-2"
               >
                 Sign In
               </button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HiPlus } from "react-icons/hi";
-import Modal from "../layouts/modal";
+import Modal from "../components/modal";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
@@ -104,16 +104,16 @@ const Movie = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative bg-yellow-950">
       <Header onClick={() => ShowMenu(showMenu)} />
       <div className="flex">
         {showMenu && <SidebarNew />}
-        <div className="w-full p-4">
-          <h1 className="text-3xl font-bold mb-4 flex justify-center items-center">
+        <div className="w-full p-4 ">
+          <h1 className="text-3xl font-bold mb-4 flex justify-center items-center text-white">
             Movie
           </h1>
           <button
-            className="px-8 bg-yellow-700 text-white text-lg font-bold py-2 rounded-md flex"
+            className="px-8 bg-yellow-700 text-white text-lg font-bold py-2 rounded-md flex mb-4"
             onClick={() => {
               setShowModal(true);
               setTitle("");

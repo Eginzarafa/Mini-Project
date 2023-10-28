@@ -9,8 +9,8 @@ import Rating from "./pages/rating";
 import Series from "./pages/series";
 import DetailSeries from "./components/DetailSeries";
 import SettingPage from "./pages/settings";
-import UsernameForm from "./layouts/settings/username";
-import PasswordForm from "./layouts/settings/password";
+import UsernameForm from "./components/settings/username";
+import PasswordForm from "./components/settings/password";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
