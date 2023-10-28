@@ -4,11 +4,12 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import SidebarNew from "../../components/SidebarNew";
 
-const UsernameForm = ({ currentUsername, onSuccess, onError }) => {
+const UsernameForm = ({ username, onSuccess, onError }) => {
   const [newUsername, setNewUsername] = useState("");
   const [message, setMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showMenu, setShowMenu] = useState(false);
+  const apiUrl = "https://api-users-belajar.web-siap.online/api/update-users";
 
   const ShowMenu = (bol) => {
     setShowMenu(bol === true ? false : true);
@@ -16,14 +17,18 @@ const UsernameForm = ({ currentUsername, onSuccess, onError }) => {
 
   const updateUsername = () => {
     if (newUsername) {
+      const data = {
+        username: username,
+        new_username: newUsername,
+      };
       axios
-        .put(`https://65388890a543859d1bb18ac4.mockapi.io/emovie2/users/1`, {
-          username: newUsername,
-        })
+        .put(apiUrl, data)
         .then((response) => {
           setSuccessMessage("Username berhasil diperbarui.");
-          onSuccess(newUsername);
-          setNewUsername("");
+          localStorage.setItem("username", newUsername);
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("role", response.data.info_user.role);
+          onSuccess("Username berhasil diperbarui.");
         })
         .catch((error) => {
           console.error("Error updating username:", error);
@@ -59,7 +64,7 @@ const UsernameForm = ({ currentUsername, onSuccess, onError }) => {
 
             <button
               onClick={updateUsername}
-              className="bg-yellow-700 text-white px-4 py-2 rounded-lg hover:bg-yellow-800 w-full"
+              className="bg-yellow-700 text-white px-4 py-2 rounded-lg hover-bg-yellow-800 w-full"
             >
               Save Username
             </button>

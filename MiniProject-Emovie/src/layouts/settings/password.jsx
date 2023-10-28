@@ -4,13 +4,14 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import SidebarNew from "../../components/SidebarNew";
 
-const PasswordForm = ({ currentPassword, onSuccess, onError }) => {
-  const [password, setPassword] = useState("");
+const PasswordForm = ({ onSuccess, onError }) => {
+  const [Password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showMenu, setShowMenu] = useState(false);
+  const apiUrl = "https://api-users-belajar.web-siap.online/api/update-users";
 
   const ShowMenu = (bol) => {
     setShowMenu(bol === true ? false : true);
@@ -18,22 +19,29 @@ const PasswordForm = ({ currentPassword, onSuccess, onError }) => {
 
   const updatePassword = () => {
     if (newPassword === confirmPassword) {
+      const data = {
+        password: Password,
+        new_password: newPassword,
+      };
+
       axios
-        .put(`https://65388890a543859d1bb18ac4.mockapi.io/emovie2/users/1`, {
-          password: newPassword,
-        })
-        .then((response) => {
+        .put(apiUrl, data)
+        .then((res) => {
+          console.log(res.data);
+          localStorage.setItem("password", newPassword);
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("role", res.data.info_user.role);
           setSuccessMessage("Password berhasil diperbarui.");
-          onSuccess(newPassword);
           setNewPassword("");
           setConfirmPassword("");
+          console.log(res.data);
         })
         .catch((error) => {
           console.error("Error updating password:", error);
           onError("Gagal memperbarui password.");
         });
     } else {
-      setMessage("Password baru tidak boleh kosong dan harus sesuai.");
+      setMessage("Password baru harus sesuai dengan konfirmasi.");
     }
   };
 
@@ -54,7 +62,7 @@ const PasswordForm = ({ currentPassword, onSuccess, onError }) => {
               </label>
               <input
                 type="password"
-                value={password}
+                value={Password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg"
               />

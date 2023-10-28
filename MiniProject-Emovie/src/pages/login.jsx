@@ -7,25 +7,32 @@ import BgLogin from "../assets/bglogin.png";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const apiUrl = "https://api-users-belajar.web-siap.online/api/login";
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleLogin = () => {
+    const data = {
+      username: username,
+      password: password,
+    };
     axios
-      .get("https://65388890a543859d1bb18ac4.mockapi.io/emovie2/users")
-      .then((response) => {
-        const users = response.data;
-        const user = users.find(
-          (u) => u.username === username && u.password === password
-        );
-
-        if (user) {
-          setIsAuthenticated(true);
-        } else {
-          alert("Username or password is incorrect.");
+      .post(apiUrl, data)
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("username", username);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", res.data.info_user.role);
+        if (res.data.info_user.role === "admin") {
+          window.location.href = "/home";
+        }
+        else {
+          window.location.href = "/home";
         }
       })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
+      .catch((er) => {
+        alert("Login failed");
+        console.log(er);
       });
   };
 

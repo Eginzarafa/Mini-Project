@@ -15,15 +15,8 @@ export default function SidebarNew() {
   const [role, setRole] = useState("");
 
   useEffect(() => {
-    fetch("https://65388890a543859d1bb18ac4.mockapi.io/emovie2/users/1")
-      .then((response) => response.json())
-      .then((data) => {
-        setUsername(data.username);
-        setRole(data.role);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    setRole(localStorage.getItem("role"));
+    setUsername(localStorage.getItem("username"));
   }, []);
 
   return (
@@ -40,29 +33,35 @@ export default function SidebarNew() {
         <FaHome className="text-2xl mr-2" />
         <span className="leading-none">Dashboard</span>
       </a>
-      <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
-        href="/movie"
-      >
-        <FaFilm className="text-2xl mr-2" />
-        <span className="leading-none">Movie</span>
-      </a>
+      {role == "admin" && (
+        <a
+          className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
+          href="/movie"
+        >
+          <FaFilm className="text-2xl mr-2" />
+          <span className="leading-none">Movie</span>
+        </a>
+      )}
 
-      <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
-        href="/series"
-      >
-        <FaTv className="text-2xl mr-2" />
-        <span className="leading-none">Series</span>
-      </a>
+      {role == "admin" && (
+        <a
+          className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
+          href="/series"
+        >
+          <FaTv className="text-2xl mr-2" />
+          <span className="leading-none">Series</span>
+        </a>
+      )}
 
-      <a
-        className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
-        href="/rating"
-      >
-        <FaComments className="text-2xl mr-2" />
-        <span className="leading-none">Reviews</span>
-      </a>
+      {role == "admin" && (
+        <a
+          className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
+          href="/rating"
+        >
+          <FaComments className="text-2xl mr-2" />
+          <span className="leading-none">Reviews</span>
+        </a>
+      )}
 
       <a
         className="flex items-center h-10 px-4 text-sm font-medium rounded-md hover:bg-slate-200 border mb-4"
