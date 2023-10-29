@@ -21,8 +21,12 @@ function Login() {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+        localStorage.setItem("nama", res.data.info_user.role);
+        localStorage.setItem("email", res.data.info_user.email);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("role", res.data.info_user.role);
+        localStorage.setItem("id", res.data.info_user.id);
         if (res.data.info_user.role === "admin") {
           window.location.href = "/home";
         } else {
