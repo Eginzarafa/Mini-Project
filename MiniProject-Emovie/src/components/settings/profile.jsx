@@ -4,7 +4,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import SidebarNew from "../SidebarNew";
 
-const UsernameForm = ({}) => {
+const Profile = ({}) => {
   const [message, setMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [showMenu, setShowMenu] = useState(false);
@@ -81,9 +81,6 @@ const UsernameForm = ({}) => {
 
             <div className="mb-4">
               <label className="block text-gray-600 font-semibold">
-                Current Name: {name}
-              </label>
-              <label className="block text-gray-600 font-semibold">
                 New Name:
               </label>
               <input
@@ -156,4 +153,4 @@ const UsernameForm = ({}) => {
   );
 };
 
-export default UsernameForm;
+export default Profile;

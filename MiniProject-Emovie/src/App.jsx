@@ -9,8 +9,6 @@ import Rating from "./pages/rating";
 import Series from "./pages/series";
 import DetailSeries from "./components/DetailSeries";
 import SettingPage from "./pages/settings";
-import UsernameForm from "./components/settings/username";
-import PasswordForm from "./components/settings/password";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -34,8 +32,6 @@ function App() {
         <Route path="/openai" element={<OpenAi />} />
         <Route path="/rating" element={<Rating />} />
         <Route path="/setting" element={<SettingPage />} />
-        <Route path="/username" element={<UsernameForm />} />
-        <Route path="/password" element={<PasswordForm />} />
       </Routes>
     </BrowserRouter>
   );
