@@ -46,7 +46,7 @@ const Rating = () => {
       <div className="flex h-screen bg-gray-100">
         {showMenu && <SidebarNew />}
         <div className="flex-1 flex flex-col overflow-hidden">
-          <main className="flex-1 overflow-x-auto bg-gray-700">
+          <main className="flex-1 overflow-x-auto bg-yellow-950">
             <div className="container mx-auto p-4">
               <h2 className="text-2xl font-bold mb-4 text-center text-white">
                 Data Rating

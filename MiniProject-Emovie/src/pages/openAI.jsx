@@ -50,7 +50,7 @@ function OpenAi() {
   };
 
   return (
-    <div className="relative bg-yellow-800">
+    <div className="relative bg-yellow-950">
       <Header onClick={() => ShowMenu(showMenu)} />
       <div className="flex h-screen">
         {showMenu && <SidebarNew />}

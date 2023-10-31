@@ -72,11 +72,11 @@ const DetailMovie = () => {
   return (
     <div>
       <Header onClick={() => ShowMenu(showMenu)} />
-      <div className="bg-yellow-600 flex">
+      <div className="bg-yellow-950 flex">
         {showMenu && <SidebarNew />}
         <div className="flex-1">
           <div className="max-w-screen-lg mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-4">Detail Movie</h1>
+            <h1 className="text-3xl font-bold mb-4 text-white">Detail Movie</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <img
@@ -86,37 +86,39 @@ const DetailMovie = () => {
                 />
               </div>
               <div>
-                <h2 className="text-xl font-bold mb-2">{data.title}</h2>
+                <h2 className="text-xl font-bold mb-2 text-white">
+                  {data.title}
+                </h2>
                 <table className="table-auto">
                   <tbody>
                     <tr>
-                      <td className="font-semibold">Genre:</td>
-                      <td>{data.genre}</td>
+                      <td className="font-semibold text-white">Genre:</td>
+                      <td className="text-white">{data.genre}</td>
                     </tr>
                     <tr>
-                      <td className="font-semibold">Tahun Rilis:</td>
-                      <td>{data.year} </td>
+                      <td className="font-semibold text-white">Tahun Rilis:</td>
+                      <td className="text-white">{data.year} </td>
                     </tr>
                     <tr>
-                      <td className="font-semibold">Rating:</td>
-                      <td>{ratingValue}/10</td>{" "}
+                      <td className="font-semibold text-white">Rating:</td>
+                      <td className="text-white">{ratingValue}/10</td>{" "}
                     </tr>
                     <tr>
-                      <td className="font-semibold">Deskripsi:</td>
-                      <td>{data.description}</td>
+                      <td className="font-semibold text-white">Deskripsi:</td>
+                      <td className="text-white">{data.description}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <div className="container mx-auto mt-20 p-5 bg-black  rounded-3xl">
+            <div className="container mx-auto mt-20 p-5 bg-yellow-700  rounded-3xl">
               <h2 className="text-2xl font-bold mb-4 text-white flex justify-center item-center">
                 Rating Film
               </h2>
               {message && <p className="text-white mb-4">{message}</p>}
               <form>
                 <div className="mb-4">
-                  <label className="block text-gray-600 font-semibold">
+                  <label className="block text-gray-300 font-semibold">
                     Username:
                   </label>
                   <input
@@ -127,7 +129,7 @@ const DetailMovie = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-600 font-semibold">
+                  <label className="block text-gray-300 font-semibold">
                     Title:
                   </label>
                   <input
@@ -139,7 +141,7 @@ const DetailMovie = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-600 font-semibold">
+                  <label className="block text-gray-300 font-semibold">
                     Review:
                   </label>
                   <textarea
@@ -150,7 +152,7 @@ const DetailMovie = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-600 font-semibold">
+                  <label className="block text-gray-300 font-semibold">
                     Rating:
                   </label>
                   <input
